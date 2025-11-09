@@ -75,7 +75,6 @@ if __name__ == "__main__":
         
     # Example usage
     example_tokens = ["Love", "kita", "."]
-    example_tokes2 = ["I", "was", "being" ,"a", "bitch", "and", "natakot", "the", "entire", "day", "."]
     print("Tokens:", example_tokens)
 
     tags = tag_language(example_tokens)

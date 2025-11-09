@@ -83,3 +83,13 @@ if __name__ == "__main__":
     print("Tokens:", example_tokens2)
 
     tags = tag_language(example_tokens2)
+
+    example_tokens3 = ["I", "love", "cock", ".", "Fuck", "you", "bitch", "tangina", "mo"]
+    print("Tokens:", example_tokens3)
+
+    tags = tag_language(example_tokens3)
+
+    example_tokens3 = ["You're", "so", "goated", "bro", "grabe", "idol", "talaga", "kita", "pre", "come", "here", "love"]
+    print("Tokens:", example_tokens3)
+
+    tags = tag_language(example_tokens3)

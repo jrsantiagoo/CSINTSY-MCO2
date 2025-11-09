@@ -10,7 +10,16 @@ Model training and feature extraction should be implemented in a separate script
 
 import os
 import pickle
+import pandas as pd
+import numpy as np
+from featureConversion import *
+from helpers import *
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
 from typing import List
+
+
+
 
 # Main tagging function
 def tag_language(tokens: List[str]) -> List[str]:
@@ -25,11 +34,22 @@ def tag_language(tokens: List[str]) -> List[str]:
     #    Example: with open('trained_model.pkl', 'rb') as f: model = pickle.load(f)
     #    (Replace with your actual model loading code)
 
+    with open("pinoybot_decision_tree.pkl", 'rb') as f:
+        model = pickle.load(f)
+
     # 2. Extract features from the input tokens to create the feature matrix
     #    Example: features = ... (your feature extraction logic here)
 
+    features_li = []
+    for i in tokens:
+        features_li.append(create_features(i))
+    # Convert into numpy array
+    features = np.array(features_li)
+
     # 3. Use the model to predict the tags for each token
     #    Example: predicted = model.predict(features)
+
+    predictions = model.predict(features)
 
     # 4. Convert the predictions to a list of strings ("ENG", "FIL", or "OTH")
     #    Example: tags = [str(tag) for tag in predicted]
@@ -41,10 +61,26 @@ def tag_language(tokens: List[str]) -> List[str]:
     # the tag_language function is retained and correctly accomplishes the expected task.
 
     # Currently, the bot just tags every token as FIL. Replace this with your more intelligent predictions.
+
+    # Note: criterion can be gini, entropy, log loss
+
+    # Currently prints palang, will change later -- Jean
+    print(predictions)
+
     return ['FIL' for i in tokens]
 
 if __name__ == "__main__":
+
+    
+        
     # Example usage
     example_tokens = ["Love", "kita", "."]
+    example_tokes2 = ["I", "was", "being" ,"a", "bitch", "and", "natakot", "the", "entire", "day", "."]
     print("Tokens:", example_tokens)
+
     tags = tag_language(example_tokens)
+
+    example_tokens2 = ["I", "was", "being" ,"a", "bitch", "and", "natakot", "the", "entire", "day", "."]
+    print("Tokens:", example_tokens2)
+
+    tags = tag_language(example_tokens2)

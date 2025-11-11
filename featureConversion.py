@@ -31,7 +31,7 @@ def vowelConsonantRatio(w: str)-> float:
         i += 1
         
     if (consCount == 0):
-        return 9999999
+        return 1e9
         
     return vowelCount / consCount
 
@@ -42,7 +42,8 @@ def twoLetterPrefix(w: str):
         return 0
     stringCheck = word[0] + word[1]
     stringCheck = stringCheck.lower()
-    if (stringCheck == 'ma' or stringCheck == 'pa' or stringCheck == 'na' or stringCheck == 'ka'):
+    prefixes = ['na', 'ma', 'pa', 'ka']
+    if stringCheck in prefixes:
         return 1
     
     else:
@@ -57,9 +58,9 @@ def threeLetterPrefix(w: str):
         return 0
     stringCheck = word[0] + word[1] + word[2]
     stringCheck = stringCheck.lower()
-    if (stringCheck == 'nag' or stringCheck == 'mag' or stringCheck == 'pag' or stringCheck == 'ika'):
+    prefixes = ['nag', 'mag', 'pag', 'ika']
+    if stringCheck in prefixes:
         return 1
-    
     else:
         return 0
 
@@ -70,8 +71,8 @@ def fourLetterPrefix(w: str):
         return 0
     stringCheck = word[0] + word[1] + word[2] + word[3]
     stringCheck = stringCheck.lower()
-    if (stringCheck == 'maka' or stringCheck == 'naka' or stringCheck == 'pang' or stringCheck == 'mala' 
-        or stringCheck == 'ipag' or stringCheck == 'pina'):
+    prefixes = ['maka', 'naka', 'pang', 'mala', 'ipag', 'pina']
+    if stringCheck in prefixes:
         return 1
     
     else:

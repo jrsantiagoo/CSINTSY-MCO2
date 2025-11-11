@@ -51,16 +51,15 @@ def has_adjacent_vowels(w: str):
             return 1
     return 0
 
-#if word contains F, V, Z or C, it returns 1, else returns 0
-def containsFVZC(w: str): 
+#if word contains F, V, Z, C, X, or Q it returns 1, else returns 0
+def containsFVZCXQ(w: str): 
     word = str(w)
     length = len(word)
     i = 0
-    while i < length:
-        if (word[i] == 'F' or word[i] == 'V' or word[i] == 'Z' or word[i] == 'C' 
-            or word[i] == 'f' or word[i] == 'v' or word[i] == 'z' or word[i] == 'c'):
+    letters = 'FVZCXQfvzcxq'
+    for letter in letters:
+        if letter in word:
             return 1
-        i += 1
         
     return 0
 
@@ -80,7 +79,9 @@ def hasFilPrefix(w: str):
     word = word.lower()
     prefixes = ['na', 'ma', 'pa', 'ka',
                 'nag', 'mag', 'pag', 'ika',
-                'maka', 'naka', 'pang', 'mala', 'ipag', 'pina']
+                'maka', 'naka', 'pang', 'mala', 
+                'ipag', 'pina', 'napag', 'kapag',
+                'mapag']
     found = ""
     
     for p in prefixes:
@@ -142,7 +143,7 @@ def create_features(word):
     word_features.append(has_adjacent_vowels(word))
 
     word_features.append(len(word))
-    word_features.append(containsFVZC(word))
+    word_features.append(containsFVZCXQ(word))
     word_features.append(containsEnglishConsonants(word))
     word_features.append(hasFilPrefix(word))
     #word_features.append(containsNG(word))

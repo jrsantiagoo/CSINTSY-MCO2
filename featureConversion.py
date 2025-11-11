@@ -12,6 +12,16 @@ def containsFVZC(w: str):
         
     return 0
 
+#if word contains t, n, r, s, l, v, z, x, q, it returns 1, else returns 0
+def containsEnglishConsonants(w: str): 
+    word = str(w).lower()
+    length = len(word)
+    consonants = "tnrslvzxq"
+    for i in range(length - 1):
+        if word[i] in consonants:
+            return 1
+    return 0
+
 #vowel to consonant ratio, the lesser the value, the more likely it is consonant, bigger value (approaching one)
 #is more likely a vowel
 def vowelConsonantRatio(w: str)-> float:
@@ -77,12 +87,55 @@ def fourLetterPrefix(w: str):
     
     else:
         return 0
+    
+# word has ng
+def containsNG(w: str): 
+    word = str(w).lower()  
+    return 1 if "ng" in word else 0
+    
+
+# words ending with vowel or consonant
+def endingLetter(w: str): 
+    word = str(w)
+    length = len(word)
+    if (word[length - 1] == 'A' or word[length - 1] == 'a' or word[length - 1] == 'E' or word[length - 1] == 'e' 
+        or word[length - 1] == 'i' or word[length - 1] == 'I' or word[length - 1] == 'o' or word[length - 1] == 'O'
+        or word[length - 1] == 'u' or word[length - 1] == 'U'):
+        return 1
+    
+    return 0
+
+# same vowels together
+def has_adjacent_vowels(w: str):
+    word = str(w)
+    length = len(word)
+    vowels = "aeiouAEIOU"
+    for i in range(length - 1):
+        if word[i] in vowels and word[i+1] in vowels:
+            return 1
+    return 0
+
+
+# if letter has k, fil  
+def containsK(w: str): 
+    word = str(w)
+    length = len(word)
+    i = 0
+    while i < length:
+        if (word[i] == 'K' or word[i] == 'k'):
+            return 1
+        i += 1
+        
+    return 0
+
+# repeat root word (will add maybe)
+
 
 #Creates an array of numerics, each corresponding to given feature
 def create_features(word):
 
     # Number of features
-    num_of_features = 5
+    num_of_features = 10
 
     word_features = [0] * num_of_features
     word_features[0] = containsFVZC(word)
@@ -90,22 +143,28 @@ def create_features(word):
     word_features[2] = twoLetterPrefix(word)
     word_features[3] = threeLetterPrefix(word)
     word_features[4] = fourLetterPrefix(word)
+    word_features[5] = containsNG(word)
+    word_features[6] = endingLetter(word)
+    word_features[7] = has_adjacent_vowels(word)
+    word_features[8] = containsK(word)
+    word_features[9] = containsEnglishConsonants(word)
+
 
     return word_features
 
 
 if __name__ == "__main__":
-    print(fourLetterPrefix("Ipagkalat"))
-    print(fourLetterPrefix("Hello"))
-    print(fourLetterPrefix("Training"))
-    print(containsFVZC("fuck"))
-    print(fourLetterPrefix("ano bayan bro baket ganyan"))
-    print(fourLetterPrefix("OO"))
-    print(fourLetterPrefix("Naglaro"))
-    print(fourLetterPrefix("kakain"))
-    print(fourLetterPrefix("kakalaro"))
-    print(fourLetterPrefix("masaya"))
-    print(fourLetterPrefix("maglaro"))
+    print(containsEnglishConsonants("Ipagkalat"))
+    print(containsEnglishConsonants("Hello"))
+    print(containsEnglishConsonants("Training"))
+    print(containsEnglishConsonants("fuck"))
+    print(containsEnglishConsonants("ano bayan bro baket ganyan"))
+    print(containsEnglishConsonants("OO"))
+    print(containsEnglishConsonants("Naglaro"))
+    print(containsEnglishConsonants("kakain"))
+    print(containsEnglishConsonants("kakalaro"))
+    print(containsEnglishConsonants("masaya"))
+    print(containsEnglishConsonants("maglaro"))
 
 
 

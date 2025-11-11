@@ -64,10 +64,8 @@ def tag_language(tokens: List[str]) -> List[str]:
 
     # Note: criterion can be gini, entropy, log loss
 
-    # Currently prints palang, will change later -- Jean
-    print(predictions)
+    return predictions
 
-    return ['FIL' for i in tokens]
 
 if __name__ == "__main__":
 

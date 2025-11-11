@@ -1,3 +1,55 @@
+#number of vowels and consonants
+def vowelAndConsCount(w: str):
+    word = str(w)
+    vowels = "AEIOUaeiou"
+    vowel_count = 0
+
+    for letter in word:
+        if letter in vowels:
+            vowel_count += 1
+
+    return vowel_count, len(word) - vowel_count
+
+#vowel to consonant ratio, the lesser the value, the more likely it is consonant, bigger value (approaching one)
+#is more likely a vowel
+def vowelConsonantRatio(v, c):
+    if (c == 0):
+        return 1e9
+        
+    return v / c 
+
+#if ends with vowel
+def endsWithVowel(w: str):
+    word = str(w)
+    vowels = "AEIOUaeiou"
+
+    if word[-1] in vowels:
+        return 1
+    return 0
+'''
+def vowelConsonantStructure(w: str):
+    word = str(word)
+    vowels = "AEIOUaeiou"
+    structure = ""
+
+    for letter in word:
+        if letter in vowels:
+            structure = structure + 'v'
+        else:
+            structure = structure + 'c'
+
+    return structure
+'''
+
+#check if word has vowels next to each other
+def has_adjacent_vowels(w: str):
+    word = str(w)
+    length = len(word)
+    vowels = "aeiouAEIOU"
+    for i in range(length - 1):
+        if word[i] in vowels and word[i+1] in vowels:
+            return 1
+    return 0
 
 #if word contains F, V, Z or C, it returns 1, else returns 0
 def containsFVZC(w: str): 
@@ -22,68 +74,17 @@ def containsEnglishConsonants(w: str):
             return 1
     return 0
 
-#vowel to consonant ratio, the lesser the value, the more likely it is consonant, bigger value (approaching one)
-#is more likely a vowel
-def vowelConsonantRatio(w: str)-> float:
+#if word has the usual Filipino prefixes such as na, ma, mag
+def hasFilPrefix(w: str):
     word = str(w)
-    length = len(word)
-    vowelCount = 0
-    consCount = 0
-    i = 0
-    while i < length:
-        if (word[i] == 'A' or word[i] == 'a' or word[i] == 'E' or word[i] == 'e' 
-            or word[i] == 'i' or word[i] == 'I' or word[i] == 'o' or word[i] == 'O'
-            or word[i] == 'u' or word[i] == 'U'):
-            vowelCount += 1
-        else:
-            consCount += 1
-
-        i += 1
-        
-    if (consCount == 0):
-        return 1e9
-        
-    return vowelCount / consCount
-
-#2 letter prefix feature, if first 2 letters contain ma, pa, na, ka, if it contains, return 1, else return 0
-def twoLetterPrefix(w: str):
-    word = str(w)
-    if (len(word) < 2):
-        return 0
-    stringCheck = word[0] + word[1]
-    stringCheck = stringCheck.lower()
-    prefixes = ['na', 'ma', 'pa', 'ka']
-    if stringCheck in prefixes:
-        return 1
+    word = word.lower()
+    prefixes = ['na', 'ma', 'pa', 'ka',
+                'nag', 'mag', 'pag', 'ika',
+                'maka', 'naka', 'pang', 'mala', 'ipag', 'pina']
     
-    else:
-        return 0
-
-
-
-#3 letter prefix feature, if first 3 letters contain "nag", "mag", "pag", "ika", if it contains, return 1, else return 0
-def threeLetterPrefix(w: str):
-    word = str(w)
-    if (len(word) < 3):
-        return 0
-    stringCheck = word[0] + word[1] + word[2]
-    stringCheck = stringCheck.lower()
-    prefixes = ['nag', 'mag', 'pag', 'ika']
-    if stringCheck in prefixes:
-        return 1
-    else:
-        return 0
-
-#4 letter prefix feature, if first 4 letters contain "maka", "naka", "pang", "mala", "ipag", "pina", if it contains, return 1, else return 0
-def fourLetterPrefix(w: str):
-    word = str(w)
-    if (len(word) < 4):
-        return 0
-    stringCheck = word[0] + word[1] + word[2] + word[3]
-    stringCheck = stringCheck.lower()
-    prefixes = ['maka', 'naka', 'pang', 'mala', 'ipag', 'pina']
-    if stringCheck in prefixes:
-        return 1
+    for p in prefixes:
+        if word.startswith(p):
+            return len(p) / len(word)
     
     else:
         return 0
@@ -130,42 +131,49 @@ def containsK(w: str):
 
 # repeat root word (will add maybe)
 
+    return 0
+
+#if word has common consonant clusters
+def hasEngConsonantCluster(w: str):
+    word = str(w)
+    word = word.lower()
+    clusters = ['bl', 'br', 'cl', 'ct', 'cr',
+                'fl', 'fr', 'gl', 'gr', 'nt',
+                'pl', 'pr', 'sk', 'sn', 'sp',
+                'st', 'str', 'spr', 'thr', 'tr', 
+                'th', 'ch']
+    
+    count = 0
+
+    for c in clusters:
+        if c in word:
+            count += 1
+    
+    return count
+
+
 
 #Creates an array of numerics, each corresponding to given feature
 def create_features(word):
+    word = str(word) 
 
-    # Number of features
-    num_of_features = 10
+    word_features = []
+    vowels, consonants = vowelAndConsCount(word)
+    word_features.append(vowels)
+    word_features.append(consonants)
+    word_features.append(vowelConsonantRatio(vowels, consonants))
+    word_features.append(endsWithVowel(word))
+    word_features.append(has_adjacent_vowels(word))
 
-    word_features = [0] * num_of_features
-    word_features[0] = containsFVZC(word)
-    word_features[1] = vowelConsonantRatio(word)
-    word_features[2] = twoLetterPrefix(word)
-    word_features[3] = threeLetterPrefix(word)
-    word_features[4] = fourLetterPrefix(word)
-    word_features[5] = containsNG(word)
-    word_features[6] = endingLetter(word)
-    word_features[7] = has_adjacent_vowels(word)
-    word_features[8] = containsK(word)
-    word_features[9] = containsEnglishConsonants(word)
-
+    word_features.append(len(word))
+    word_features.append(containsFVZC(word))
+    word_features.append(hasFilPrefix(word))
+    word_features.append(hasEngConsonantCluster(word))
 
     return word_features
 
 
 if __name__ == "__main__":
-    print(containsEnglishConsonants("Ipagkalat"))
-    print(containsEnglishConsonants("Hello"))
-    print(containsEnglishConsonants("Training"))
-    print(containsEnglishConsonants("fuck"))
-    print(containsEnglishConsonants("ano bayan bro baket ganyan"))
-    print(containsEnglishConsonants("OO"))
-    print(containsEnglishConsonants("Naglaro"))
-    print(containsEnglishConsonants("kakain"))
-    print(containsEnglishConsonants("kakalaro"))
-    print(containsEnglishConsonants("masaya"))
-    print(containsEnglishConsonants("maglaro"))
-
-
-
-    
+    while True:
+        word: str = input()
+        print(hasEngConsonantCluster(word))

@@ -109,10 +109,6 @@ def containsK(w: str):
         
     return 0
 
-# repeat root word (will add maybe)
-
-    return 0
-
 #if word has common consonant clusters
 def hasEngConsonantCluster(w: str):
     word = str(w)
@@ -149,7 +145,7 @@ def create_features(word):
     word_features.append(containsFVZC(word))
     word_features.append(containsEnglishConsonants(word))
     word_features.append(hasFilPrefix(word))
-    word_features.append(containsNG(word))
+    #word_features.append(containsNG(word))
     word_features.append(containsK(word))
     word_features.append(hasEngConsonantCluster(word))
 

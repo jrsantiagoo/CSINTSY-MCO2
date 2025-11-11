@@ -26,7 +26,7 @@ def endsWithVowel(w: str):
     if word[-1] in vowels:
         return 1
     return 0
-
+'''
 def vowelConsonantStructure(w: str):
     word = str(word)
     vowels = "AEIOUaeiou"
@@ -39,6 +39,17 @@ def vowelConsonantStructure(w: str):
             structure = structure + 'c'
 
     return structure
+'''
+
+#check if word has vowels next to each other
+def has_adjacent_vowels(w: str):
+    word = str(w)
+    length = len(word)
+    vowels = "aeiouAEIOU"
+    for i in range(length - 1):
+        if word[i] in vowels and word[i+1] in vowels:
+            return 1
+    return 0
 
 #if word contains F, V, Z or C, it returns 1, else returns 0
 def containsFVZC(w: str): 
@@ -86,6 +97,7 @@ def hasEngConsonantCluster(w: str):
     return count
 
 
+
 #Creates an array of numerics, each corresponding to given feature
 def create_features(word):
     word = str(word) 
@@ -96,6 +108,7 @@ def create_features(word):
     word_features.append(consonants)
     word_features.append(vowelConsonantRatio(vowels, consonants))
     word_features.append(endsWithVowel(word))
+    word_features.append(has_adjacent_vowels(word))
 
     word_features.append(len(word))
     word_features.append(containsFVZC(word))

@@ -81,41 +81,21 @@ def hasFilPrefix(w: str):
     prefixes = ['na', 'ma', 'pa', 'ka',
                 'nag', 'mag', 'pag', 'ika',
                 'maka', 'naka', 'pang', 'mala', 'ipag', 'pina']
+    found = ""
     
     for p in prefixes:
         if word.startswith(p):
-            return len(p) / len(word)
+            found = p
     
+    if len(found) > 1:
+        return len(found)
     else:
         return 0
     
 # word has ng
 def containsNG(w: str): 
     word = str(w).lower()  
-    return 1 if "ng" in word else 0
-    
-
-# words ending with vowel or consonant
-def endingLetter(w: str): 
-    word = str(w)
-    length = len(word)
-    if (word[length - 1] == 'A' or word[length - 1] == 'a' or word[length - 1] == 'E' or word[length - 1] == 'e' 
-        or word[length - 1] == 'i' or word[length - 1] == 'I' or word[length - 1] == 'o' or word[length - 1] == 'O'
-        or word[length - 1] == 'u' or word[length - 1] == 'U'):
-        return 1
-    
-    return 0
-
-# same vowels together
-def has_adjacent_vowels(w: str):
-    word = str(w)
-    length = len(word)
-    vowels = "aeiouAEIOU"
-    for i in range(length - 1):
-        if word[i] in vowels and word[i+1] in vowels:
-            return 1
-    return 0
-
+    return 1 if "ng" in word else 0    
 
 # if letter has k, fil  
 def containsK(w: str): 
@@ -167,7 +147,10 @@ def create_features(word):
 
     word_features.append(len(word))
     word_features.append(containsFVZC(word))
+    word_features.append(containsEnglishConsonants(word))
     word_features.append(hasFilPrefix(word))
+    word_features.append(containsNG(word))
+    word_features.append(containsK(word))
     word_features.append(hasEngConsonantCluster(word))
 
     return word_features

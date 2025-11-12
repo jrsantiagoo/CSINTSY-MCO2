@@ -1,3 +1,5 @@
+import re
+
 #number of vowels and consonants
 def vowelAndConsCount(w: str):
     word = str(w)
@@ -139,6 +141,35 @@ def capsPercentage(w: str):
     
     return capital_count / len(word)
 
+#reduplication (repeat of words/syllables)
+def is_reduplicated(w: str):
+    word = str(w)
+    return int(bool(re.search(r"(\b\w+\b)-\1", word)) or
+               bool(re.search(r"(.{2,})\1", word)))
+
+#count of each word's syllables
+def syllableCount(w: str):
+    word = str(w)
+    pattern = r"[bcdfghjklmnpqrstvwxyz]*[aeiou]+"
+    return len(re.findall(pattern, word))
+
+#consonant repeats
+def repeatConsonants(w: str):
+
+    word = str(w).lower()
+
+    vowels = "aeiou"
+
+    for i in range(1, len(word)):
+        if(word[i] == word[i - 1] and word[i] not in vowels):
+            return 1
+    return 0
+
+#count of each word's syllables
+def is_alpha(w: str):
+    word = str(w)
+    return word.isalpha()
+
 #Creates an array of numerics, each corresponding to given feature
 def create_features(word):
     word = str(word) 
@@ -155,13 +186,16 @@ def create_features(word):
     word_features.append(containsFVZCXQ(word))
     word_features.append(containsEnglishConsonants(word))
     word_features.append(hasFilPrefix(word))
-    #word_features.append(containsNG(word))
+    word_features.append(containsNG(word))
     word_features.append(containsK(word))
     word_features.append(hasEngConsonantCluster(word))
     word_features.append(capsPercentage(word))
+    word_features.append(is_reduplicated(word))
+    word_features.append(syllableCount(word))
+    word_features.append(repeatConsonants(word))
+    word_features.append(is_alpha(word))
 
     return word_features
-
 
 if __name__ == "__main__":
     while True:

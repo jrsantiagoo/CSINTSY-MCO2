@@ -74,20 +74,16 @@ if __name__ == "__main__":
     # Example usage
     example_tokens = ["Love", "kita", "."]
     print("Tokens:", example_tokens)
-
-    tags = tag_language(example_tokens)
+    print(tag_language(example_tokens))
 
     example_tokens2 = ["I", "was", "being" ,"a", "bitch", "and", "natakot", "the", "entire", "day", "."]
     print("Tokens:", example_tokens2)
-
-    tags = tag_language(example_tokens2)
+    print(tag_language(example_tokens2))
 
     example_tokens3 = ["I", "love", "cock", ".", "Fuck", "you", "bitch", "tangina", "mo"]
     print("Tokens:", example_tokens3)
-
-    tags = tag_language(example_tokens3)
+    print(tag_language(example_tokens3))
 
     example_tokens4 = ["loving", "is", "easy"]
     print("Tokens:", example_tokens4)
-
-    tags = tag_language(example_tokens4)
+    print(tag_language(example_tokens4))

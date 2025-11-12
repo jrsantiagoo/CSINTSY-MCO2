@@ -13,10 +13,10 @@ def vowelAndConsCount(w: str):
 #vowel to consonant ratio, the lesser the value, the more likely it is consonant, bigger value (approaching one)
 #is more likely a vowel
 def vowelConsonantRatio(v, c):
-    if (c == 0):
+    if c == 0:
         return 1e9
-        
-    return v / c 
+
+    return v / c
 
 #if ends with vowel
 def endsWithVowel(w: str):
@@ -128,7 +128,16 @@ def hasEngConsonantCluster(w: str):
     
     return count
 
+#percentage of capital letters
+def capsPercentage(w: str):
+    word = str(w)
+    capital_count = 0
 
+    for letter in word:
+        if letter.isupper():
+            capital_count += 1
+    
+    return capital_count / len(word)
 
 #Creates an array of numerics, each corresponding to given feature
 def create_features(word):
@@ -149,6 +158,7 @@ def create_features(word):
     #word_features.append(containsNG(word))
     word_features.append(containsK(word))
     word_features.append(hasEngConsonantCluster(word))
+    word_features.append(capsPercentage(word))
 
     return word_features
 
@@ -156,4 +166,4 @@ def create_features(word):
 if __name__ == "__main__":
     while True:
         word: str = input()
-        print(hasEngConsonantCluster(word))
+        print(capsPercentage(word))

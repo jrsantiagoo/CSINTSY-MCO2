@@ -56,19 +56,6 @@ accuracy = accuracy_score(Y_test, y_test_pred)
 print(f"Bot accuracy: {accuracy:.3f}")
 f1 = f1_score(Y_test, y_test_pred, average='weighted')
 print(f"F1 score: {f1:.3f}")
-print(f"Accuracy: {accuracy * 100:.2f}%")
-print(f"Weighted F1 Score: {f1 * 100:.2f}%\n")
-
-# Get full report
-print("="*60)
-print("DETAILED CLASSIFICATION REPORT")
-print("="*60)
-
-# Assuming your label_to_int() maps 0=ENG, 1=FIL, 2=OTH
-target_names = ['ENG', 'FIL', 'OTH']
-print(classification_report(Y_test, y_test_pred, target_names=target_names, digits=2))
-print("="*60)
-
 
 filename = 'pinoybot_decision_tree.pkl'
 with open(filename, 'wb') as file:

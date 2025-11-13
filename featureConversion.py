@@ -53,6 +53,16 @@ def has_adjacent_vowels(w: str):
             return 1
     return 0
 
+#check if word has same vowels next to each other
+def has_same_adjacent_vowels(w: str):
+    word = str(w)
+    length = len(word)
+    vowels = "aaeeiioouuAAEEIIOOUU"
+    for i in range(length - 1):
+        if word[i] in vowels and word[i+1] in vowels:
+            return 1
+    return 0
+
 #if word contains F, V, Z, C, X, or Q it returns 1, else returns 0
 def containsFVZCXQ(w: str): 
     word = str(w)
@@ -180,13 +190,14 @@ def create_features(word):
     word_features.append(consonants)
     word_features.append(vowelConsonantRatio(vowels, consonants))
     word_features.append(endsWithVowel(word))
+    word_features.append(has_same_adjacent_vowels(word))
     word_features.append(has_adjacent_vowels(word))
 
     word_features.append(len(word))
     word_features.append(containsFVZCXQ(word))
     word_features.append(containsEnglishConsonants(word))
     word_features.append(hasFilPrefix(word))
-    #word_features.append(containsNG(word))
+    word_features.append(containsNG(word))
     word_features.append(containsK(word))
     word_features.append(hasEngConsonantCluster(word))
     word_features.append(capsPercentage(word))

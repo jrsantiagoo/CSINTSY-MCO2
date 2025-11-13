@@ -154,7 +154,7 @@ def suffixENG(w: str):
            'ism', 'ist', 'ity', 'ty', 'ment', 'ness', 'ship', 
            'sion', 'tion', 'ate', 'en', 'ify', 'fy', 'ize', 'ise', 
            'able', 'ible', 'al', 'ful', 'ic', 'ical', 'ious', 'ous', 
-           'ish', 'ive', 'less', 'y']
+           'ish', 'ive', 'less', 'y', '\'s', 'ck']
 
     for s in suf:
         if w.lower().endswith(s):

@@ -51,6 +51,9 @@ X_val, X_test, Y_val, Y_test = train_test_split(X_temp, Y_temp, test_size=0.5)
 model = DecisionTreeClassifier()
 model.fit(X_train, Y_train)
 
+importances = model.feature_importances_
+print("Feature importances:", importances)
+
 y_test_pred = model.predict(X_test)
 accuracy = accuracy_score(Y_test, y_test_pred)
 print(f"Bot accuracy: {accuracy:.3f}")

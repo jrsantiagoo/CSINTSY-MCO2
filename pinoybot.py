@@ -18,9 +18,6 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from typing import List
 
-
-
-
 # Main tagging function
 def tag_language(tokens: List[str]) -> List[str]:
     """
@@ -68,8 +65,6 @@ def tag_language(tokens: List[str]) -> List[str]:
 
 
 if __name__ == "__main__":
-
-    
         
     # Example usage
     example_tokens = ["Love", "kita", "."]

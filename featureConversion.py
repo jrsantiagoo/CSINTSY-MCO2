@@ -54,9 +54,9 @@ def containsFVZCXQ(w: str):
     word = str(w)
     length = len(word)
     i = 0
-    letters = 'FVZCXQfvzcxq'
+    letters = 'FVZCXQJ'
     for letter in letters:
-        if letter in word:
+        if letter in word.upper():
             return 1
         
     return 0
@@ -204,6 +204,7 @@ def finalLetter(w: str):
 def firstLetter(w: str):
     return ord(w[0].lower())
 
+
 #Creates an array of numerics, each corresponding to given feature
 def create_features(word):
     word = str(word) 
@@ -230,13 +231,10 @@ def create_features(word):
 
     word_features.append(DicENG(word))
     word_features.append(DicFIL(word))
-    #word_features.append(filCluster(word))
+    # word_features.append(filCluster(word))
     word_features.append(finalLetter(word))
     word_features.append(firstLetter(word))
 
-
-
-    
 
     return word_features
 

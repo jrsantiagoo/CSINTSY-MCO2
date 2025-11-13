@@ -59,16 +59,6 @@ def containsFVZCXQ(w: str):
         
     return 0
 
-#if word contains t, n, r, s, l, v, z, x, q, it returns 1, else returns 0
-def containsEnglishConsonants(w: str): 
-    word = str(w).lower()
-    length = len(word)
-    consonants = "tnrslvzxq"
-    for i in range(length - 1):
-        if word[i] in consonants:
-            return 1
-    return 0
-
 #if word has the usual Filipino prefixes such as na, ma, mag
 def hasFilPrefix(w: str):
     word = str(w)
@@ -85,7 +75,7 @@ def hasFilPrefix(w: str):
             found = p
     
     if len(found) > 1:
-        return len(found) / len(word)
+        return len(found)
     else:
         return 0
 

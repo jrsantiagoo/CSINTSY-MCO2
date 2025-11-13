@@ -33,39 +33,50 @@ X_train, X_temp, Y_train, Y_temp = train_test_split(X, Y, test_size=0.30)
 X_val, X_test, Y_val, Y_test = train_test_split(X_temp, Y_temp, test_size=0.5)
 
 # creating models with different depths
-# depths = [i for i in range(10,27)]
-# val_scores = []
+depths = [i for i in range(10,27)]
+val_scores = []
 
-# for d in depths:
-#     model = DecisionTreeClassifier(max_depth=d)
-#     model.fit(X_train, Y_train)
-#     y_val_pred = model.predict(X_val)
-#     accuracy = accuracy_score(Y_val, y_val_pred)
-#     val_scores.append(accuracy)
+for d in depths:
+    model = DecisionTreeClassifier(max_depth=d)
+    model.fit(X_train, Y_train)
+    y_val_pred = model.predict(X_val)
+    accuracy = accuracy_score(Y_val, y_val_pred)
+    val_scores.append(accuracy)
 
-# best_depth = depths[val_scores.index(max(val_scores))]
-# print(f"Best max_depth based on validation: {best_depth}")
+best_depth = depths[val_scores.index(max(val_scores))]
+print(f"Best max_depth based on validation: {best_depth}")
 
-# # creating a model based on the best depth
-# model = DecisionTreeClassifier(max_depth=best_depth)
-model = DecisionTreeClassifier()
+# creating a model based on the best depth
+model = DecisionTreeClassifier(max_depth=best_depth)
+# model = DecisionTreeClassifier()
 model.fit(X_train, Y_train)
 
 y_test_pred = model.predict(X_test)
 accuracy = accuracy_score(Y_test, y_test_pred)
-print(f"Bot accuracy: {accuracy:.3f}")
-f1 = f1_score(Y_test, y_test_pred, average='weighted')
-print(f"F1 score: {f1:.3f}")
 
-print(f"Accuracy: {accuracy * 100:.2f}%")
-print(f"Weighted F1 Score: {f1 * 100:.2f}%\n")
+# CM: Confusion Matrix
+cm = [[0 for _ in range(3)] for _ in range(3)]
 
-# Get full report
+for i in range(len(y_test_pred)):
+    cm[Y_test[i]][y_test_pred[i]] += 1
+
+print("="*60)
+print("CONFUSION MATRIX")
+print("="*60)
+print()
+print('                           PREDICTED')
+print()
+print('                    FIL       ENG       OTH')
+print()
+print(f'L        FIL{cm[0][0]:>11}{cm[0][1]:>10}{cm[0][2]:>10}')
+print(f'A        ENG{cm[1][0]:>11}{cm[1][1]:>10}{cm[1][2]:>10}')
+print(f'B        OTH{cm[2][0]:>11}{cm[2][1]:>10}{cm[2][2]:>10}')
+print()
+
 print("="*60)
 print("DETAILED CLASSIFICATION REPORT")
 print("="*60)
 
-# Assuming your label_to_int() maps 0=ENG, 1=FIL, 2=OTH
 target_names = ['ENG', 'FIL', 'OTH']
 print(classification_report(Y_test, y_test_pred, target_names=target_names, digits=2))
 print("="*60)

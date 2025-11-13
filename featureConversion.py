@@ -219,8 +219,4 @@ def create_features(word):
     word_features.append(finalLetter(word))
     word_features.append(firstLetter(word))
 
-
-
-    
-
     return word_features

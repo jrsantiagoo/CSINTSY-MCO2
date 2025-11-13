@@ -80,7 +80,7 @@ print("="*60)
 print("DETAILED CLASSIFICATION REPORT")
 print("="*60)
 
-target_names = ['ENG', 'FIL', 'OTH']
+target_names = ['FIL', 'ENG', 'OTH']
 print(classification_report(Y_test, y_test_pred, target_names=target_names, digits=2))
 print("="*60)
 

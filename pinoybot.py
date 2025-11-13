@@ -51,6 +51,8 @@ def tag_language(tokens: List[str]) -> List[str]:
     # 4. Convert the predictions to a list of strings ("ENG", "FIL", or "OTH")
     #    Example: tags = [str(tag) for tag in predicted]
 
+    tags = [int_to_label(tag) for tag in predictions]
+
     # 5. Return the list of tags
     #    return tags
 
@@ -61,7 +63,7 @@ def tag_language(tokens: List[str]) -> List[str]:
 
     # Note: criterion can be gini, entropy, log loss
 
-    return predictions
+    return tags
 
 
 if __name__ == "__main__":

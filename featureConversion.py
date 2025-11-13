@@ -52,8 +52,6 @@ def has_same_adjacent_vowels(w: str):
 #if word contains F, V, Z, C, X, or Q it returns 1, else returns 0
 def containsFVZCXQ(w: str): 
     word = str(w)
-    length = len(word)
-    i = 0
     letters = 'FVZCXQfvzcxq'
     for letter in letters:
         if letter in word:
@@ -87,7 +85,7 @@ def hasFilPrefix(w: str):
             found = p
     
     if len(found) > 1:
-        return len(found)
+        return len(found) / len(word)
     else:
         return 0
 
@@ -172,6 +170,7 @@ def suffixENG(w: str):
             return 1
     return 0
 
+# common filipino words
 def DicFIL(w: str):
     fil = {"ang","ng","mga","sa","ay","siya","ito","kami"}
 
@@ -181,6 +180,7 @@ def DicFIL(w: str):
     
     return 0
 
+# common eng words
 def DicENG(w: str):
     eng = {"the","of","to","and","is","are","it", "how"}
 
@@ -190,17 +190,11 @@ def DicENG(w: str):
     
     return 0
 
-def filCluster(w: str):
-
-    for c in ['ng', 'ka', 'ma', 'na','ta']:
-        if c in w.lower():
-            return 1
-        
-    return 0
-
+# ASCII value of last letter 
 def finalLetter(w: str):
     return ord(w[-1].lower())
 
+# ASCII value of first letter
 def firstLetter(w: str):
     return ord(w[0].lower())
 
@@ -210,11 +204,11 @@ def create_features(word):
 
     word_features = []
     vowels, consonants = vowelAndConsCount(word)
+    word_features.append(len(word))
     word_features.append(vowelConsonantRatio(vowels, consonants))
     word_features.append(endsWithVowel(word))
     word_features.append(has_same_adjacent_vowels(word))
     word_features.append(has_adjacent_vowels(word))
-    word_features.append(len(word))
 
     word_features.append(containsFVZCXQ(word))
     word_features.append(hasFilPrefix(word))
@@ -230,17 +224,7 @@ def create_features(word):
 
     word_features.append(DicENG(word))
     word_features.append(DicFIL(word))
-    #word_features.append(filCluster(word))
     word_features.append(finalLetter(word))
     word_features.append(firstLetter(word))
 
-
-
-    
-
     return word_features
-
-if __name__ == "__main__":
-    while True:
-        word: str = input()
-        print(capsPercentage(word))

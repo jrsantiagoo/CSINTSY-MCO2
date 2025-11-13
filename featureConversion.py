@@ -130,7 +130,7 @@ def hasEngConsonantCluster(w: str):
                 'fl', 'fr', 'gl', 'gr', 'nt',
                 'pl', 'pr', 'sk', 'sn', 'sp',
                 'st', 'str', 'spr', 'thr', 'tr', 
-                'th', 'ch']
+                'th', 'ch', 'sh', 'ph', 'wh']
     
     count = 0
 
@@ -203,6 +203,35 @@ def suffixENG(w: str):
             return 1
     return 0
 
+def DicFIL(w: str):
+    fil = {"ang","ng","mga","sa","ay","siya","ito","kami"}
+
+    for wo in fil:
+        if wo == w:
+            return 1
+    
+    return 0
+
+def DicENG(w: str):
+    eng = {"the","of","to","and","is","are","it", "how"}
+
+    for wo in eng:
+        if wo == w:
+            return 1
+    
+    return 0
+
+def filCluster(w: str):
+
+    for c in ['ng', 'ka', 'ma', 'na','ta']:
+        if c in w.lower():
+            return 1
+        
+    return 0
+
+def finalLetter(w: str):
+    return ord(w[-1].lower())
+
 #Creates an array of numerics, each corresponding to given feature
 def create_features(word):
     word = str(word) 
@@ -230,6 +259,14 @@ def create_features(word):
     word_features.append(is_alpha(word))
     word_features.append(prefixENG(word))
     word_features.append(suffixENG(word))
+    word_features.append(DicENG(word))
+    word_features.append(DicFIL(word))
+    word_features.append(filCluster(word))
+    word_features.append(finalLetter(word))
+
+
+
+    
 
     return word_features
 

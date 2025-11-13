@@ -29,23 +29,23 @@ Y = np.array(an_words_labels)
 
 X_train, X_temp, Y_train, Y_temp = train_test_split(X, Y, test_size=0.30)
 X_val, X_test, Y_val, Y_test = train_test_split(X_temp, Y_temp, test_size=0.5)
-'''
+
 # creating models with different depths
-depths = [i for i in range(10,23)]
-val_scores = []
+# depths = [i for i in range(10,27)]
+# val_scores = []
 
-for d in depths:
-    model = DecisionTreeClassifier(max_depth=d)
-    model.fit(X_train, Y_train)
-    y_val_pred = model.predict(X_val)
-    accuracy = accuracy_score(Y_val, y_val_pred)
-    val_scores.append(accuracy)
+# for d in depths:
+#     model = DecisionTreeClassifier(max_depth=d)
+#     model.fit(X_train, Y_train)
+#     y_val_pred = model.predict(X_val)
+#     accuracy = accuracy_score(Y_val, y_val_pred)
+#     val_scores.append(accuracy)
 
-best_depth = depths[val_scores.index(max(val_scores))]
-print(f"Best max_depth based on validation: {best_depth}")
-'''
-# creating a model based on the best depth
-#model = DecisionTreeClassifier(max_depth=best_depth)
+# best_depth = depths[val_scores.index(max(val_scores))]
+# print(f"Best max_depth based on validation: {best_depth}")
+
+# # creating a model based on the best depth
+# model = DecisionTreeClassifier(max_depth=best_depth)
 model = DecisionTreeClassifier()
 model.fit(X_train, Y_train)
 

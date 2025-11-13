@@ -28,20 +28,6 @@ def endsWithVowel(w: str):
     if word[-1] in vowels:
         return 1
     return 0
-'''
-def vowelConsonantStructure(w: str):
-    word = str(word)
-    vowels = "AEIOUaeiou"
-    structure = ""
-
-    for letter in word:
-        if letter in vowels:
-            structure = structure + 'v'
-        else:
-            structure = structure + 'c'
-
-    return structure
-'''
 
 #check if word has vowels next to each other
 def has_adjacent_vowels(w: str):
@@ -104,23 +90,6 @@ def hasFilPrefix(w: str):
         return len(found)
     else:
         return 0
-    
-# word has ng
-def containsNG(w: str): 
-    word = str(w).lower()  
-    return 1 if "ng" in word else 0    
-
-# if letter has k, fil  
-def containsK(w: str): 
-    word = str(w)
-    length = len(word)
-    i = 0
-    while i < length:
-        if (word[i] == 'K' or word[i] == 'k'):
-            return 1
-        i += 1
-        
-    return 0
 
 #if word has common consonant clusters
 def hasEngConsonantCluster(w: str):
@@ -232,37 +201,38 @@ def filCluster(w: str):
 def finalLetter(w: str):
     return ord(w[-1].lower())
 
+def firstLetter(w: str):
+    return ord(w[0].lower())
+
 #Creates an array of numerics, each corresponding to given feature
 def create_features(word):
     word = str(word) 
 
     word_features = []
-    vowels, consonants = vowelAndConsCount(word)    
-    word_features.append(vowels)
-    word_features.append(consonants)
+    vowels, consonants = vowelAndConsCount(word)
     word_features.append(vowelConsonantRatio(vowels, consonants))
     word_features.append(endsWithVowel(word))
     word_features.append(has_same_adjacent_vowels(word))
     word_features.append(has_adjacent_vowels(word))
-
     word_features.append(len(word))
+
     word_features.append(containsFVZCXQ(word))
-    word_features.append(containsEnglishConsonants(word))
     word_features.append(hasFilPrefix(word))
-    word_features.append(containsNG(word))
-    word_features.append(containsK(word))
     word_features.append(hasEngConsonantCluster(word))
     word_features.append(capsPercentage(word))
     word_features.append(is_reduplicated(word))
+
     word_features.append(syllableCount(word))
     word_features.append(repeatConsonants(word))
     word_features.append(is_alpha(word))
     word_features.append(prefixENG(word))
     word_features.append(suffixENG(word))
+
     word_features.append(DicENG(word))
     word_features.append(DicFIL(word))
-    word_features.append(filCluster(word))
+    #word_features.append(filCluster(word))
     word_features.append(finalLetter(word))
+    word_features.append(firstLetter(word))
 
 
 

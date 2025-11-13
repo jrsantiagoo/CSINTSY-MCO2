@@ -12,8 +12,7 @@ def vowelAndConsCount(w: str):
 
     return vowel_count, len(word) - vowel_count
 
-#vowel to consonant ratio, the lesser the value, the more likely it is consonant, bigger value (approaching one)
-#is more likely a vowel
+#vowel to consonant ratio
 def vowelConsonantRatio(v, c):
     if c == 0:
         return 1e9
@@ -54,21 +53,11 @@ def containsFVZCXQ(w: str):
     word = str(w)
     length = len(word)
     i = 0
-    letters = 'FVZCXQJ'
+    letters = 'FVZCXQfvzcxq'
     for letter in letters:
         if letter in word.upper():
             return 1
         
-    return 0
-
-#if word contains t, n, r, s, l, v, z, x, q, it returns 1, else returns 0
-def containsEnglishConsonants(w: str): 
-    word = str(w).lower()
-    length = len(word)
-    consonants = "tnrslvzxq"
-    for i in range(length - 1):
-        if word[i] in consonants:
-            return 1
     return 0
 
 #if word has the usual Filipino prefixes such as na, ma, mag
@@ -172,6 +161,7 @@ def suffixENG(w: str):
             return 1
     return 0
 
+# common filipino words
 def DicFIL(w: str):
     fil = {"ang","ng","mga","sa","ay","siya","ito","kami"}
 
@@ -181,6 +171,7 @@ def DicFIL(w: str):
     
     return 0
 
+# common eng words
 def DicENG(w: str):
     eng = {"the","of","to","and","is","are","it", "how"}
 
@@ -190,20 +181,13 @@ def DicENG(w: str):
     
     return 0
 
-def filCluster(w: str):
-
-    for c in ['ng', 'ka', 'ma', 'na','ta']:
-        if c in w.lower():
-            return 1
-        
-    return 0
-
+# ASCII value of last letter 
 def finalLetter(w: str):
     return ord(w[-1].lower())
 
+# ASCII value of first letter
 def firstLetter(w: str):
     return ord(w[0].lower())
-
 
 #Creates an array of numerics, each corresponding to given feature
 def create_features(word):
@@ -211,11 +195,11 @@ def create_features(word):
 
     word_features = []
     vowels, consonants = vowelAndConsCount(word)
+    word_features.append(len(word))
     word_features.append(vowelConsonantRatio(vowels, consonants))
     word_features.append(endsWithVowel(word))
     word_features.append(has_same_adjacent_vowels(word))
     word_features.append(has_adjacent_vowels(word))
-    word_features.append(len(word))
 
     word_features.append(containsFVZCXQ(word))
     word_features.append(hasFilPrefix(word))
@@ -231,14 +215,12 @@ def create_features(word):
 
     word_features.append(DicENG(word))
     word_features.append(DicFIL(word))
-    # word_features.append(filCluster(word))
+    #word_features.append(filCluster(word))
     word_features.append(finalLetter(word))
     word_features.append(firstLetter(word))
 
 
-    return word_features
 
-if __name__ == "__main__":
-    while True:
-        word: str = input()
-        print(capsPercentage(word))
+    
+
+    return word_features

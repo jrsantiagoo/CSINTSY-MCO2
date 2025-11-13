@@ -13,4 +13,3 @@ def int_to_label(label_int):
     if label_int == 1:
         return 'ENG'
     return 'OTH'
-

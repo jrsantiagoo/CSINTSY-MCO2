@@ -8,14 +8,11 @@ This module provides the main tagging function for the PinoyBot project, which i
 Model training and feature extraction should be implemented in a separate script. The trained model should be saved and loaded here for prediction.
 """
 
-import os
+import re
 import pickle
-import pandas as pd
 import numpy as np
 from featureConversion import *
 from helpers import *
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.model_selection import train_test_split
 from typing import List
 
 # Main tagging function
@@ -51,34 +48,17 @@ def tag_language(tokens: List[str]) -> List[str]:
     # 4. Convert the predictions to a list of strings ("ENG", "FIL", or "OTH")
     #    Example: tags = [str(tag) for tag in predicted]
 
+    tags = [int_to_label(tag) for tag in predictions]
+
     # 5. Return the list of tags
     #    return tags
 
-    # You can define other functions, import new libraries, or add other Python files as needed, as long as
-    # the tag_language function is retained and correctly accomplishes the expected task.
-
-    # Currently, the bot just tags every token as FIL. Replace this with your more intelligent predictions.
-
-    # Note: criterion can be gini, entropy, log loss
-
-    return predictions
+    return tags
 
 
 if __name__ == "__main__":
-        
-    # Example usage
-    example_tokens = ["Love", "kita", "."]
-    print("Tokens:", example_tokens)
-    print(tag_language(example_tokens))
-
-    example_tokens2 = ["I", "was", "being" ,"a", "bitch", "and", "natakot", "the", "entire", "day", "."]
-    print("Tokens:", example_tokens2)
-    print(tag_language(example_tokens2))
-
-    example_tokens3 = ["I", "love", "cock", ".", "Fuck", "you", "bitch", "tangina", "mo"]
-    print("Tokens:", example_tokens3)
-    print(tag_language(example_tokens3))
-
-    example_tokens4 = ["loving", "is", "easy"]
-    print("Tokens:", example_tokens4)
-    print(tag_language(example_tokens4))
+    text = input()
+    tokens = re.split(r'(\s+|,|\.|\?|!)', text)
+    tokens = [token for token in tokens if token.strip()]
+    print(tokens)
+    print(tag_language(tokens))

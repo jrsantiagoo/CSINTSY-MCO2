@@ -51,6 +51,9 @@ model = DecisionTreeClassifier(max_depth=best_depth)
 # model = DecisionTreeClassifier()
 model.fit(X_train, Y_train)
 
+importances = model.feature_importances_
+print("Feature importances:", importances)
+
 y_test_pred = model.predict(X_test)
 accuracy = accuracy_score(Y_test, y_test_pred)
 

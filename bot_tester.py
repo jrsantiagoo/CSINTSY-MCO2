@@ -3,7 +3,7 @@ import pandas as pd
 
 if __name__ == "__main__":
     # Example usage
-    data = pd.read_csv("all_english.csv")
+    data = pd.read_csv("test_tokens.csv")
     test_tokens = data['word'].to_list()
 
     predictions = tag_language(test_tokens)

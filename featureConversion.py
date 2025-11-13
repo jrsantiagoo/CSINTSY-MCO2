@@ -180,6 +180,29 @@ def is_alpha(w: str):
     word = str(w)
     return word.isalpha()
 
+#english prefixes
+def prefixENG(w: str):
+    pre = ['ante', 'anti', 'auto', 'circu', 'co', 'com', 'con', 'contra', 
+           'contro', 'de', 'dis', 'extra', 'pre', 'pro', 're', 'sub', 'sym', 
+           'syn', 'tele', 'trans', 'tri', 'un', 'uni', 'up']
+    for p in pre:
+        if w.lower().startswith(p):
+            return 1
+    return 0
+
+#english suffixes
+def suffixENG(w: str):
+    suf = ['acy', 'al', 'ance', 'ence', 'dom', 'er', 'or', 
+           'ism', 'ist', 'ity', 'ty', 'ment', 'ness', 'ship', 
+           'sion', 'tion', 'ate', 'en', 'ify', 'fy', 'ize', 'ise', 
+           'able', 'ible', 'al', 'ful', 'ic', 'ical', 'ious', 'ous', 
+           'ish', 'ive', 'less', 'y']
+
+    for s in suf:
+        if w.lower().endswith(s):
+            return 1
+    return 0
+
 #Creates an array of numerics, each corresponding to given feature
 def create_features(word):
     word = str(word) 
@@ -205,6 +228,8 @@ def create_features(word):
     word_features.append(syllableCount(word))
     word_features.append(repeatConsonants(word))
     word_features.append(is_alpha(word))
+    word_features.append(prefixENG(word))
+    word_features.append(suffixENG(word))
 
     return word_features
 

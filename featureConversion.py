@@ -12,8 +12,7 @@ def vowelAndConsCount(w: str):
 
     return vowel_count, len(word) - vowel_count
 
-#vowel to consonant ratio, the lesser the value, the more likely it is consonant, bigger value (approaching one)
-#is more likely a vowel
+#vowel to consonant ratio
 def vowelConsonantRatio(v, c):
     if c == 0:
         return 1e9
@@ -188,7 +187,8 @@ def finalLetter(w: str):
 def firstLetter(w: str):
     return ord(w[0].lower())
 
-#Creates an array of numerics, each corresponding to given feature
+
+# Creates an array of features of a given word
 def create_features(word):
     word = str(word) 
 

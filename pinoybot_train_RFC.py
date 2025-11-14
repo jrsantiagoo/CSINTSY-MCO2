@@ -50,6 +50,20 @@ print(f"Best max_depth based on validation: {best_depth}")
 model = RandomForestClassifier(max_depth=best_depth)
 model.fit(X_train, Y_train)
 
+importances = model.feature_importances_
+feature_names = ['len', 'vowel_consonant_ratio', 'ends_with_vowel', 'has_same_adjacent_vowels', 'has_adjacent_vowels', 'containsFVZCXQ', 'has_fil_prefix', ''
+'has_eng_consonant_cluster', 'caps_percentage', 'is_reduplicated', 'syllable_count', 'repeat_consonants', 'is_alpha',
+'prefixENG', 'suffixENG', 'dic_FIL', 'dic_ENG', 'ascii_final_letter', 'ascii_first_letter']
+
+count = 0
+counter = 0
+for i in importances:
+    print(f'{feature_names[counter]:<30}: {i:>.4}') 
+    count += i
+    counter += 1
+
+print(count)
+
 depths = []
 for tree in model.estimators_:
     depths.append(tree.tree_.max_depth)

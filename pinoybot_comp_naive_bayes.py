@@ -2,7 +2,7 @@ import os
 import pickle
 import pandas as pd
 import numpy as np
-from featureConversion import *
+from feature_conversion import *
 from helpers import *
 from sklearn.naive_bayes import ComplementNB
 from sklearn.metrics import accuracy_score 

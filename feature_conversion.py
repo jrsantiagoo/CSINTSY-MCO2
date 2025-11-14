@@ -1,7 +1,7 @@
 import re
 
 #number of vowels and consonants
-def vowelAndConsCount(w: str):
+def vowel_consonant_count(w: str):
     word = str(w)
     vowels = "AEIOUaeiou"
     vowel_count = 0
@@ -13,14 +13,14 @@ def vowelAndConsCount(w: str):
     return vowel_count, len(word) - vowel_count
 
 #vowel to consonant ratio
-def vowelConsonantRatio(v, c):
+def vowel_consonant_ratio(v, c):
     if c == 0:
         return 1e9
 
     return v / c
 
 #if ends with vowel
-def endsWithVowel(w: str):
+def ends_with_vowel(w: str):
     word = str(w)
     vowels = "AEIOUaeiou"
 
@@ -51,8 +51,6 @@ def has_same_adjacent_vowels(w: str):
 #if word contains F, V, Z, C, X, or Q it returns 1, else returns 0
 def containsFVZCXQ(w: str): 
     word = str(w)
-    length = len(word)
-    i = 0
     letters = 'FVZCXQfvzcxq'
     for letter in letters:
         if letter in word.upper():
@@ -61,7 +59,7 @@ def containsFVZCXQ(w: str):
     return 0
 
 #if word has the usual Filipino prefixes such as na, ma, mag
-def hasFilPrefix(w: str):
+def has_fil_prefix(w: str):
     word = str(w)
     word = word.lower()
     prefixes = ['na', 'ma', 'pa', 'ka',
@@ -81,7 +79,7 @@ def hasFilPrefix(w: str):
         return 0
 
 #if word has common consonant clusters
-def hasEngConsonantCluster(w: str):
+def has_eng_consonant_cluster(w: str):
     word = str(w)
     word = word.lower()
     clusters = ['bl', 'br', 'cl', 'ct', 'cr',
@@ -99,7 +97,7 @@ def hasEngConsonantCluster(w: str):
     return count
 
 #percentage of capital letters
-def capsPercentage(w: str):
+def caps_percentage(w: str):
     word = str(w)
     capital_count = 0
 
@@ -116,13 +114,13 @@ def is_reduplicated(w: str):
                bool(re.search(r"(.{2,})\1", word)))
 
 #count of each word's syllables
-def syllableCount(w: str):
+def syllable_count(w: str):
     word = str(w)
     pattern = r"[bcdfghjklmnpqrstvwxyz]*[aeiou]+"
     return len(re.findall(pattern, word))
 
 #consonant repeats
-def repeatConsonants(w: str):
+def repeat_consonants(w: str):
 
     word = str(w).lower()
 
@@ -162,7 +160,7 @@ def suffixENG(w: str):
     return 0
 
 # common filipino words
-def DicFIL(w: str):
+def dic_FIL(w: str):
     fil = {"ang","ng","mga","sa","ay","siya","ito","kami"}
 
     for wo in fil:
@@ -172,7 +170,7 @@ def DicFIL(w: str):
     return 0
 
 # common eng words
-def DicENG(w: str):
+def dic_ENG(w: str):
     eng = {"the","of","to","and","is","are","it", "how"}
 
     for wo in eng:
@@ -182,11 +180,11 @@ def DicENG(w: str):
     return 0
 
 # ASCII value of last letter 
-def finalLetter(w: str):
+def ascii_final_letter(w: str):
     return ord(w[-1].lower())
 
 # ASCII value of first letter
-def firstLetter(w: str):
+def ascii_first_letter(w: str):
     return ord(w[0].lower())
 
 #Creates an array of numerics, each corresponding to given feature
@@ -194,29 +192,28 @@ def create_features(word):
     word = str(word) 
 
     word_features = []
-    vowels, consonants = vowelAndConsCount(word)
+    vowels, consonants = vowel_consonant_count(word)
     word_features.append(len(word))
-    word_features.append(vowelConsonantRatio(vowels, consonants))
-    word_features.append(endsWithVowel(word))
+    word_features.append(vowel_consonant_ratio(vowels, consonants))
+    word_features.append(ends_with_vowel(word))
     word_features.append(has_same_adjacent_vowels(word))
     word_features.append(has_adjacent_vowels(word))
 
     word_features.append(containsFVZCXQ(word))
-    word_features.append(hasFilPrefix(word))
-    word_features.append(hasEngConsonantCluster(word))
-    word_features.append(capsPercentage(word))
+    word_features.append(has_fil_prefix(word))
+    word_features.append(has_eng_consonant_cluster(word))
+    word_features.append(caps_percentage(word))
     word_features.append(is_reduplicated(word))
 
-    word_features.append(syllableCount(word))
-    word_features.append(repeatConsonants(word))
+    word_features.append(syllable_count(word))
+    word_features.append(repeat_consonants(word))
     word_features.append(is_alpha(word))
     word_features.append(prefixENG(word))
     word_features.append(suffixENG(word))
 
-    word_features.append(DicENG(word))
-    word_features.append(DicFIL(word))
-    #word_features.append(filCluster(word))
-    word_features.append(finalLetter(word))
-    word_features.append(firstLetter(word))
+    word_features.append(dic_ENG(word))
+    word_features.append(dic_FIL(word))
+    word_features.append(ascii_final_letter(word))
+    word_features.append(ascii_first_letter(word))
 
     return word_features

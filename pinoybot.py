@@ -11,7 +11,7 @@ Model training and feature extraction should be implemented in a separate script
 import re
 import pickle
 import numpy as np
-from featureConversion import *
+from feature_conversion import *
 from helpers import *
 from typing import List
 
@@ -28,7 +28,7 @@ def tag_language(tokens: List[str]) -> List[str]:
     #    Example: with open('trained_model.pkl', 'rb') as f: model = pickle.load(f)
     #    (Replace with your actual model loading code)
 
-    with open("pinoybot_decision_tree.pkl", 'rb') as f:
+    with open("pinoybot_rfc.pkl", 'rb') as f:
         model = pickle.load(f)
 
     # 2. Extract features from the input tokens to create the feature matrix

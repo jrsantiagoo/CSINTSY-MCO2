@@ -11,7 +11,7 @@ pip install pandas
 
 ### How to train model
 ```
-python pinoybot_decision_tree.py
+python pinoybot_train_RFC.py
 ```
 
 ### How to run pinoybot

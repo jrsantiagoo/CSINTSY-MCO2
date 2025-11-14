@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 from feature_conversion import *
 from helpers import *
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score, f1_score, classification_report
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import f1_score, classification_report
 from sklearn.model_selection import train_test_split
 
 # Converts csv into dataframe
@@ -33,29 +33,28 @@ X_train, X_temp, Y_train, Y_temp = train_test_split(X, Y, test_size=0.30)
 X_val, X_test, Y_val, Y_test = train_test_split(X_temp, Y_temp, test_size=0.5)
 
 # creating models with different depths
-depths = [i for i in range(10,27)]
+depths = [i for i in range(10,40)]
 val_scores = []
 
 for d in depths:
-    model = DecisionTreeClassifier(max_depth=d)
+    model = RandomForestClassifier(max_depth=d)
     model.fit(X_train, Y_train)
     y_val_pred = model.predict(X_val)
-    accuracy = accuracy_score(Y_val, y_val_pred)
-    val_scores.append(accuracy)
+    f1 = f1_score(Y_val, y_val_pred, average='weighted')
+    val_scores.append(f1)
 
 best_depth = depths[val_scores.index(max(val_scores))]
 print(f"Best max_depth based on validation: {best_depth}")
 
 # creating a model based on the best depth
-model = DecisionTreeClassifier(max_depth=best_depth)
-# model = DecisionTreeClassifier()
+model = RandomForestClassifier(max_depth=best_depth)
 model.fit(X_train, Y_train)
 
-importances = model.feature_importances_
-print("Feature importances:", importances)
+depths = []
+for tree in model.estimators_:
+    depths.append(tree.tree_.max_depth)
 
 y_test_pred = model.predict(X_test)
-accuracy = accuracy_score(Y_test, y_test_pred)
 
 # CM: Confusion Matrix
 cm = [[0 for _ in range(3)] for _ in range(3)]
@@ -84,7 +83,7 @@ target_names = ['FIL', 'ENG', 'OTH']
 print(classification_report(Y_test, y_test_pred, target_names=target_names, digits=2))
 print("="*60)
 
-filename = 'pinoybot_decision_tree.pkl'
+filename = 'pinoybot_rfc.pkl'
 with open(filename, 'wb') as file:
     pickle.dump(model, file)
 

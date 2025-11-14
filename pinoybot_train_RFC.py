@@ -1,11 +1,10 @@
 import pickle
 import pandas as pd
 import numpy as np
-from featureConversion import *
+from feature_conversion import *
 from helpers import *
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, f1_score, classification_report
+from sklearn.metrics import f1_score, classification_report
 from sklearn.model_selection import train_test_split
 
 # Converts csv into dataframe

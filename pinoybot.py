@@ -11,7 +11,7 @@ Model training and feature extraction should be implemented in a separate script
 import re
 import pickle
 import numpy as np
-from featureConversion import *
+from feature_conversion import *
 from helpers import *
 from typing import List
 

@@ -41,8 +41,8 @@ for d in depths:
     model = RandomForestClassifier(max_depth=d)
     model.fit(X_train, Y_train)
     y_val_pred = model.predict(X_val)
-    accuracy = accuracy_score(Y_val, y_val_pred)
-    val_scores.append(accuracy)
+    f1 = f1_score(Y_val, y_val_pred, average='weighted')
+    val_scores.append(f1)
 
 best_depth = depths[val_scores.index(max(val_scores))]
 print(f"Best max_depth based on validation: {best_depth}")
